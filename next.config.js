@@ -2,16 +2,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    allowedDevOrigins: [
-      'replit.dev', 
-      'replit.co', 
-      'repl.it',
-      /\.replit\.dev$/,
-      /\.replit\.co$/,
-      /\.repl\.it$/
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
     ]
-  }
+  },
 }
 
 module.exports = nextConfig
