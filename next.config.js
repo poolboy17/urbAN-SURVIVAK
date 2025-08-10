@@ -2,9 +2,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   experimental: {
-    allowedDevOrigins: ['replit.dev', 'replit.co', 'repl.it']
+    allowedDevOrigins: [
+      'replit.dev', 
+      'replit.co', 
+      'repl.it',
+      /\.replit\.dev$/,
+      /\.replit\.co$/,
+      /\.repl\.it$/
+    ]
   }
 }
 
