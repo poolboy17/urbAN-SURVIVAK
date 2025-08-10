@@ -29,13 +29,17 @@ export async function generateEnterpriseArticle(prompt, options = {}) {
     // Phase 5: Generate Structured Data Schema
     const schemaMarkup = await generateSchemaMarkup(finalArticle);
 
+    // Phase 6: Generate image search query
+    const imageQuery = generateImageSearchQuery(finalArticle.title, finalArticle.keywords);
+
     return {
       ...finalArticle,
       schemaMarkup,
       searchIntent: strategyAnalysis.searchIntent,
       contentStrategy: strategyAnalysis.strategy,
       seoScore: await calculateSEOScore(finalArticle),
-      readabilityScore: calculateReadabilityScore(finalArticle.content)
+      readabilityScore: calculateReadabilityScore(finalArticle.content),
+      imageQuery
     };
 
   } catch (error) {
@@ -276,6 +280,20 @@ function calculateReadabilityScore(content) {
   else if (avgWordsPerSentence > 15) score -= 10;
   
   return Math.max(score, 0);
+}
+
+function generateImageSearchQuery(title, keywords = []) {
+  // Extract meaningful words from title
+  const titleWords = title
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .split(' ')
+    .filter(word => word.length > 3 && !['the', 'and', 'for', 'are', 'but', 'not', 'you', 'all', 'can', 'had', 'her', 'was', 'one', 'our', 'out', 'day', 'get', 'has', 'him', 'his', 'how', 'man', 'new', 'now', 'old', 'see', 'two', 'way', 'who', 'boy', 'did', 'its', 'let', 'put', 'say', 'she', 'too', 'use'].includes(word));
+
+  // Combine with primary keywords
+  const searchTerms = [...titleWords.slice(0, 3), ...(keywords || []).slice(0, 2)];
+  
+  return searchTerms.join(' ').substring(0, 50); // Limit length for better results
 }
 
 // Legacy function for backward compatibility

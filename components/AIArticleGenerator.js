@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { generateEnterpriseArticle } from '../utils/ai-generator';
 import ArticleIdeaGenerator from './ArticleIdeaGenerator';
+import FeatureImage from './FeatureImage';
 
 export default function AIArticleGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -9,6 +10,7 @@ export default function AIArticleGenerator() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [generationPhase, setGenerationPhase] = useState('');
+  const [featureImage, setFeatureImage] = useState(null);
 
   const handleGenerate = async (e) => {
     e.preventDefault();
@@ -55,6 +57,10 @@ keywords: ${JSON.stringify(result.keywords || [])}
 searchIntent: "${result.searchIntent || 'informational'}"
 seoScore: ${result.seoScore || 0}
 readabilityScore: ${result.readabilityScore || 0}
+featureImage: "${featureImage?.url || ''}"
+featureImageAlt: "${featureImage?.description || result.title}"
+featureImageCredit: "${featureImage?.author || ''}"
+featureImageCreditUrl: "${featureImage?.authorUrl || ''}"
 ---
 
 ${result.content}
@@ -158,6 +164,18 @@ ${JSON.stringify(result.schemaMarkup, null, 2)}
             >
               Download MDX
             </button>
+          </div>
+          
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-3">Feature Image:</h3>
+            <FeatureImage
+              query={result.title}
+              width={600}
+              height={300}
+              alt={result.title}
+              className="w-full max-w-2xl"
+              onImageSelect={setFeatureImage}
+            />
           </div>
           
           <div className="grid md:grid-cols-2 gap-6 mb-6">
