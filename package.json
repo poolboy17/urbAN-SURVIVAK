@@ -27,7 +27,8 @@
     "test:e2e": "cypress open",
     "test:e2e:headless": "cypress run",
     "lighthouse:ci": "lhci autorun",
-    "analyze:size": "npx next-bundle-analyzer"
+    "analyze:size": "npx next-bundle-analyzer",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@lhci/cli": "^0.15.1",
@@ -43,7 +44,6 @@
     "cypress": "^14.5.4",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "husky": "^9.1.7",
     "jest": "^30.0.5",
     "lint-staged": "^16.1.5",
     "next": "^15.1.4",
@@ -67,6 +67,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.1.4",
     "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.7",
     "postcss": "^8.4.38",
     "tailwindcss": "^4.0.16",
     "typescript": "^5.1.3"
