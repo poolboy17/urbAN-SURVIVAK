@@ -28,8 +28,9 @@
     "test:e2e:headless": "cypress run",
     "lighthouse:ci": "lhci autorun",
     "analyze:size": "npx next-bundle-analyzer",
+    "optimize:content": "node scripts/auto-optimize-content.js",
+    "optimize:content:watch": "node scripts/auto-optimize-content.js --watch",
     "optimize:images": "node scripts/optimize-images.js",
-    "optimize:images:responsive": "node scripts/optimize-images.js --responsive",
     "prepare": "husky install"
   },
   "dependencies": {
